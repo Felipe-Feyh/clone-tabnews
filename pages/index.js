@@ -1,5 +1,5 @@
 function Home() {
-  return <h1>Alterando mensagem de teste</h1>;
+  return <h1>Teste de Continuous Deployment</h1>;
 }
 
 export default Home;
