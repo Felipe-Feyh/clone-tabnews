@@ -2,39 +2,24 @@ import orchestrator from "tests/orchestrator.js";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  await orchestrator.clearDatabase();
 });
 
-describe("POST /api/v1/migrations", () => {
+describe("POST /api/v1/status", () => {
   describe("Anonymous user", () => {
-    describe("Running pending migrations", () => {
-      test("For the first time", async () => {
-        const response1 = await fetch(
-          "http://localhost:3000/api/v1/migrations",
-          {
-            method: "POST",
-          },
-        );
-        expect(response1.status).toBe(201);
-
-        const response1Body = await response1.json();
-
-        expect(Array.isArray(response1Body)).toBe(true);
-        expect(response1Body.length).toBeGreaterThan(0);
+    test("Retrieving current system status", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/status", {
+        method: "POST",
       });
-      test("For the second time", async () => {
-        const response2 = await fetch(
-          "http://localhost:3000/api/v1/migrations",
-          {
-            method: "POST",
-          },
-        );
-        expect(response2.status).toBe(200);
+      expect(response.status).toBe(405);
 
-        const response2Body = await response2.json();
+      const responseBody = await response.json();
 
-        expect(Array.isArray(response2Body)).toBe(true);
-        expect(response2Body.length).toBe(0);
+      expect(responseBody).toEqual({
+        name: "MethodNotAllowedError",
+        message: "Método não permitido para este endpoint.",
+        action:
+          "Verifique se o método HTTP enviado é válido para este endpoint.",
+        status_code: 405,
       });
     });
   });
