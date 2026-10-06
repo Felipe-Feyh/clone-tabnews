@@ -1,7 +1,6 @@
 import { version as uuidVersion } from "uuid";
 import orchestrator from "tests/orchestrator.js";
 
-
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
   await orchestrator.clearDatabase();
@@ -19,10 +18,9 @@ describe("POST /api/v1/users", () => {
         body: JSON.stringify({
           username: "felipefeyh3",
           email: "felipefeyh3@example.com",
-          password: "senha123"
-        })
+          password: "senha123",
+        }),
       });
-
 
       expect(response.status).toBe(201);
 
@@ -33,7 +31,7 @@ describe("POST /api/v1/users", () => {
         username: expect.any(String),
         email: expect.any(String),
         created_at: responseBody.created_at,
-        updated_at: responseBody.updated_at
+        updated_at: responseBody.updated_at,
       });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
