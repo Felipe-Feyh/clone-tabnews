@@ -1,6 +1,6 @@
 import { version as uuidVersion } from "uuid";
 import orchestrator from "tests/orchestrator.js";
-import webserver from "infra/webserver.js";
+import webserver from "infra/scripts/webserver.js";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
